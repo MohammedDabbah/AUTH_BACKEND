@@ -119,6 +119,8 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
   try {
     const oldToken = req.cookies?.refreshToken;
 
+    console.log("old..: ",oldToken);
+
     if (!oldToken) {
       throw ApiError.unauthorized("No refresh token");
     }

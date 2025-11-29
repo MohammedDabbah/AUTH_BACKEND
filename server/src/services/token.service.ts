@@ -58,6 +58,8 @@ export class TokenService {
 
             const exists = await RefreshTokenModel.findOne({ token: data.token, revoked: false });
 
+            console.log("exi..: ",exists)
+
             if (!exists) {
                 throw new Error("Refresh token not found (possible reuse/replay attack)");
             }

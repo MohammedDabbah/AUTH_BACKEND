@@ -41,7 +41,10 @@ export class UserService {
              const user = await UserModel.findOne({ email: data.email });
             if (!user) throw ApiError.unauthorized("Invalid email or password");
 
-            const match = await compare(data.password, user.password);
+            if(user.authProvider === "google")
+                throw ApiError.forbidden("This account uses Google Login. Please login with Google.")
+
+            const match = await compare(data.password, user.password!);
             if (!match) throw ApiError.unauthorized("Invalid email or password");
             
             return {
